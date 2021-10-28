@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HomePage({ films }) {
   return (
     <>
@@ -5,7 +7,7 @@ export default function HomePage({ films }) {
         {films.map(({id, original_title, name }) => {
           return (
             <li key={id}>
-              <p>{original_title ?? name}</p>
+              <Link to={`/movies/${id}`}>{original_title ?? name}</Link>
             </li>
           );
         })}

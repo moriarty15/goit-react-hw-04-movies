@@ -4,6 +4,7 @@ import HomePage from "./Components/HomePage";
 import MoviesPage from "./Components/MoviesPage";
 import Navigation from "./Components/Navigation";
 import NotFoundView from "./Components/NotFoundView";
+import MovieDetailsPage from "./Components/MovieDetailsPage";
 
 export default function App() {
   const [search, setSearch] = useState("");
@@ -52,18 +53,21 @@ export default function App() {
       <Navigation />
       <Switch>
         <Route path="/" exact>
-        <HomePage films={films} />
-      </Route>
+          <HomePage films={films} />
+        </Route>
 
-      <Route path="/movies">
-        <MoviesPage onSubmit={handleFormSubmit} found={found} />
-      </Route>
+        <Route path="/movies" exact>
+          <MoviesPage onSubmit={handleFormSubmit} found={found} />
+        </Route>
 
-      <Route>
-        <NotFoundView/>
-      </Route>
+        <Route  path="/movies/:movieId" >
+          <MovieDetailsPage/>
+        </Route>
+
+        <Route>
+          <NotFoundView />
+        </Route>
       </Switch>
-      
     </>
   );
 }
