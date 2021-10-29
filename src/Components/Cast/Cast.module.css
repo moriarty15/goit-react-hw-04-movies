@@ -1,0 +1,9 @@
+.images {
+  display: block;
+  width: 220px;
+  height: 330px;
+}
+.contain {
+  display: inline-block;
+  margin: 10px;
+}

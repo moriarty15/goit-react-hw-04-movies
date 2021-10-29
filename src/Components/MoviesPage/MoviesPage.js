@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function MoviesPage({onSubmit, found}) {
   const [search, setSearch] = useState("");
@@ -29,7 +30,7 @@ export default function MoviesPage({onSubmit, found}) {
       {found.length > 0 && <ul>
         {found.map(({ original_title, name, id }) => {
           return (<li key={id}>
-          <p>{original_title ?? name }</p>
+          <Link to={`/movies/${id}`}>{original_title ?? name }</Link>
           </li>)
         })}
       </ul>}
