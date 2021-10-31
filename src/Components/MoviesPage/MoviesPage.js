@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import * as FetchResponse from "../FetchResponse";
+import style from "./MoviesPage.module.css"
 
 export default function MoviesPage() {
   const [search, setSearch] = useState("");
@@ -29,7 +30,10 @@ export default function MoviesPage() {
         alert("по данному запросу ничего не найдено");
         return;
       }
-      setFound(results);
+      const arrayTitleFilms = results.map(({ id, name, original_title }) => {
+        return {id, name, original_title}
+      })
+      setFound(arrayTitleFilms);
     };
     historySearch();
   }, [queryRequest]);
@@ -55,17 +59,17 @@ export default function MoviesPage() {
 
   return (
     <>
-      <form onSubmit={searchButton}>
-        <button type="submit">Search</button>
-        <input onChange={inputChange} />
+      <form onSubmit={searchButton} className={style.form}>
+        <button type="submit" className={style.button}>Search</button>
+        <input onChange={inputChange}  placeholder="Search film.." className={style.input} />
       </form>
 
       {found.length > 0 && (
-        <ul>
+        <ul className={style.list}>
           {found.map(({ original_title, name, id }) => {
             return (
-              <li key={id}>
-                <Link to={`/movies/${id}`}>{original_title ?? name}</Link>
+              <li key={id} className={style.item}>
+                <Link to={`/movies/${id}`} className={style.link}>{original_title ?? name}</Link>
               </li>
             );
           })}
