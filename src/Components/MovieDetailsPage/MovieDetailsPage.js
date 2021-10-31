@@ -1,9 +1,15 @@
 import { useParams, Switch, Route } from "react-router";
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import style from "./MovieDetailsPage.module.css";
+import * as FetchResponse from "../FetchResponse";
+
 import Cast from "../Cast";
 import Reviews from "../Reviews";
+
+const defaultImgURL =
+  "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
+const BASE_URL_IMG = "https://www.themoviedb.org/t/p/w220_and_h330_face";
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
@@ -11,44 +17,34 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchById() {
       try {
-        const response = await fetch(`
-https://api.themoviedb.org/3/movie/${movieId}?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US`);
-        const json = await response.json();
-        if (json.status !== "Released") {
-          alert("error 404");
-          return;
-        }
+        const json = await FetchResponse.fetchMovieById(movieId);
         setMovie(json);
       } catch (error) {
-        console.log("whoops");
+        alert("Простите, но по данному фильму ничего не найдено");
+        history.goBack()
       }
     }
     fetchById();
-  }, [movieId]);
+  }, [movieId, history]);
 
   const getCast = async () => {
     try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US`
-      );
-      const json = await response.json();
+      const json = await FetchResponse.fetchMovieCast(movieId);
       const allCast = await json.cast;
       setCast(allCast);
     } catch (error) {
-      console.log("error");
+      alert("error");
     }
   };
 
   const getReviews = async () => {
     try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US&page=1`
-      );
-      const json = await response.json();
+      const json = await FetchResponse.fetchMovieReviews(movieId);
       const results = await json.results;
       setReviews(results);
     } catch (error) {
@@ -64,12 +60,13 @@ https://api.themoviedb.org/3/movie/${movieId}?api_key=f67f4d14d6b529f941fa4f2852
             {movie.original_title} (
             <span>{movie.release_date.slice(0, 4)}</span>)
           </h2>
+          <button onClick={() => history.goBack()}>Go back</button>
           <img
             className={style.images}
             src={
               movie.poster_path
-                ? `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`
-                : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
+                ? `${BASE_URL_IMG}${movie.poster_path}`
+                : defaultImgURL
             }
             alt={movie.original_title}
           />
@@ -92,12 +89,7 @@ https://api.themoviedb.org/3/movie/${movieId}?api_key=f67f4d14d6b529f941fa4f2852
           <p>Additional information</p>
           <ul>
             <li>
-              <NavLink
-                to={`${url}/cast`}
-                onClick={() => {
-                  getCast();
-                }}
-              >
+              <NavLink to={`${url}/cast`} onClick={getCast}>
                 Cast
               </NavLink>
             </li>
@@ -112,12 +104,21 @@ https://api.themoviedb.org/3/movie/${movieId}?api_key=f67f4d14d6b529f941fa4f2852
               </NavLink>
             </li>
           </ul>
+
           <Switch>
             <Route path={`${url}/cast`}>
-              {cast.length !== 0 ? <Cast cast={cast} /> : <p>Sorry, sorry, nothing was found</p>}
+              {cast.length !== 0 ? (
+                <Cast cast={cast} />
+              ) : (
+                <p>Sorry, sorry, nothing was found</p>
+              )}
             </Route>
             <Route path={`${url}/reviews`}>
-              {reviews.length !== 0 ? <Reviews reviews={reviews}/> : <p>We don't have any reviews for this movie</p>}
+              {reviews.length !== 0 ? (
+                <Reviews reviews={reviews} />
+              ) : (
+                <p>We don't have any reviews for this movie</p>
+              )}
             </Route>
           </Switch>
         </div>
