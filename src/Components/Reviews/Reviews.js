@@ -1,4 +1,6 @@
-export default function Reviews({reviews}) {
+import PropTypes from "prop-types"
+
+export default function Reviews({ reviews }) {
     return (<>
         <ul>
             {reviews.map(({author, content}) => {
@@ -9,4 +11,8 @@ export default function Reviews({reviews}) {
             })}
     </ul>
     </>)
+}
+
+Reviews.propTypes = {
+    reviews: PropTypes.arrayOf(PropTypes.object),
 }

@@ -1,15 +1,11 @@
 import { useParams, Switch, Route } from "react-router";
 import { NavLink, useRouteMatch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import style from "./MovieDetailsPage.module.css";
-import * as FetchResponse from "../FetchResponse";
+import * as FetchResponse from "../../services/FetchResponse";
+import BasicInfomByMovie from "../../views/BasicInfomByMovie/BasicInfomByMovie";
 
 import Cast from "../Cast";
 import Reviews from "../Reviews";
-
-const defaultImgURL =
-  "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
-const BASE_URL_IMG = "https://www.themoviedb.org/t/p/w220_and_h330_face";
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
@@ -26,7 +22,7 @@ export default function MovieDetailsPage() {
         setMovie(json);
       } catch (error) {
         alert("Простите, но по данному фильму ничего не найдено");
-        history.goBack()
+        history.goBack();
       }
     }
     fetchById();
@@ -56,36 +52,7 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <div>
-          <h2 className={style.title}>
-            {movie.original_title} (
-            <span>{movie.release_date.slice(0, 4)}</span>)
-          </h2>
-          <button onClick={() => history.goBack()}>Go back</button>
-          <img
-            className={style.images}
-            src={
-              movie.poster_path
-                ? `${BASE_URL_IMG}${movie.poster_path}`
-                : defaultImgURL
-            }
-            alt={movie.original_title}
-          />
-
-          <p>
-            rate: <span>{movie.vote_average}</span>
-          </p>
-          <p className={style.overview}>Overview </p>
-          <p>{movie.overview}</p>
-          <p className={style.overview}>Genres </p>
-          <ul>
-            {movie.genres.map(({ name }) => {
-              return (
-                <li key={name}>
-                  <span>{name}</span>
-                </li>
-              );
-            })}
-          </ul>
+          <BasicInfomByMovie movie={movie} onClick={history.goBack} />
           <p>Additional information</p>
           <ul>
             <li>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import * as FetchResponse from "../FetchResponse";
+import * as FetchResponse from "../../services/FetchResponse";
 import style from "./HomePage.module.css"
 
 export default function HomePage() {

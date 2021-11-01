@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import * as FetchResponse from "../FetchResponse";
+import * as FetchResponse from "../../services/FetchResponse";
 import style from "./MoviesPage.module.css"
 
 export default function MoviesPage() {
