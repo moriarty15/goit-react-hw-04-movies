@@ -1,11 +1,14 @@
 import { useParams, Switch, Route } from "react-router";
+import { lazy, Suspense } from "react";
 import { NavLink, useRouteMatch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as FetchResponse from "../../services/FetchResponse";
 import BasicInfomByMovie from "../../views/BasicInfomByMovie/BasicInfomByMovie";
+import style from "./MovieDetailsPage.module.css";
 
-import Cast from "../Cast";
-import Reviews from "../Reviews";
+const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast"*/))
+const Reviews = lazy(()=> import("../Reviews" /*webpackChunkName: "reviews"*/))
+
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
@@ -53,25 +56,33 @@ export default function MovieDetailsPage() {
       {movie && (
         <div>
           <BasicInfomByMovie movie={movie} onClick={history.goBack} />
-          <p>Additional information</p>
-          <ul>
-            <li>
-              <NavLink to={`${url}/cast`} onClick={getCast}>
-                Cast
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={`${url}/reviews`}
-                onClick={() => {
-                  getReviews();
-                }}
-              >
-                Reviews
-              </NavLink>
-            </li>
-          </ul>
+          <div className={style.additional__infom}>
+            <p className={style.overview}>Additional information</p>
+            <ul className={style.list}>
+              <li className={style.item}>
+                <NavLink
+                  to={`${url}/cast`}
+                  onClick={getCast}
+                  className={style.link}
+                >
+                  Cast
+                </NavLink>
+              </li>
+              <li className={style.item}>
+                <NavLink
+                  to={`${url}/reviews`}
+                  onClick={() => {
+                    getReviews();
+                  }}
+                  className={style.link}
+                >
+                  Reviews
+                </NavLink>
+              </li>
+            </ul>
+          </div>
 
+          <Suspense fallback={<p>loading</p>}>          
           <Switch>
             <Route path={`${url}/cast`}>
               {cast.length !== 0 ? (
@@ -88,6 +99,7 @@ export default function MovieDetailsPage() {
               )}
             </Route>
           </Switch>
+          </Suspense>
         </div>
       )}
     </>

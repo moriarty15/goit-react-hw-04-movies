@@ -4,11 +4,14 @@
 }
 .title {
   font-weight: bold;
+  text-align: center;
+  margin: 0;
 }
 .overview {
   font-weight: bold;
   font-size: 26px;
   line-height: 1.3;
+  margin: 0;
 }
 .overview__content {
   width: 60%;
@@ -19,6 +22,7 @@
   height: 330px;
 }
 .button {
+  margin: 10px;
   border: 2px solid #4caf50;
   background-color: white;
   padding: 14px 28px;
@@ -29,4 +33,7 @@
 .button:hover {
   background-color: #4caf50;
   color: white;
+}
+.rigth__side {
+  margin-left: 30px;
 }

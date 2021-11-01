@@ -31,13 +31,11 @@ export default function BasicInfomByMovie({ movie, onClick }) {
             alt={original_title}
           />
         </div>
-        <div>
-          <p>
-            rate: <span>{vote_average}</span>
-          </p>
+        <div className={style.rigth__side}>          
           <p className={style.overview}>Overview </p>
           <p className={style.overview__content}>{overview}</p>
           <p className={style.overview}>Genres </p>
+          
           <ul>
             {genres.map(({ name }) => {
               return (
@@ -47,6 +45,9 @@ export default function BasicInfomByMovie({ movie, onClick }) {
               );
             })}
           </ul>
+          <p className={style.overview}>
+            rate: <span>{vote_average}</span>
+          </p>
         </div>
       </div>
     </>

@@ -13,8 +13,8 @@ export default function CastView({ profile_path, name, character }) {
         src={profile_path ? `${BASE_URL_IMG}${profile_path}` : defaultImgURL}
         alt="img"
       />
-      <span>Name: {name}</span>
-      <p>Character: {character}</p>
+      <p className={style.name}>Name: {name}</p>
+      <p className={style.name}>Character: {character}</p>
     </>
   );
 }
