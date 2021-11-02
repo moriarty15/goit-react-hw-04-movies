@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import * as FetchResponse from "../../services/FetchResponse";
 import style from "./HomePage.module.css"
 
 export default function HomePage() {
   const [films, setFilms] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     async function FetchPopularFilms() {
@@ -28,7 +29,10 @@ export default function HomePage() {
         {films.map(({ id, original_title, name }) => {
           return (
             <li key={id} className={style.item}>
-              <Link to={`/movies/${id}`} className={style.link}>{original_title ?? name}</Link>
+              <Link to={{
+                pathname: `/movies/${id}`,
+                state: {from: location}
+              }} className={style.link}>{original_title ?? name}</Link>
             </li>
           );
         })}

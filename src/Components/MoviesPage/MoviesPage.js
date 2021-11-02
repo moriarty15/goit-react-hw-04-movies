@@ -6,9 +6,8 @@ import style from "./MoviesPage.module.css"
 export default function MoviesPage() {
   const [search, setSearch] = useState("");
   const [found, setFound] = useState([]);
-
+  const history = useHistory()
   const location = useLocation();
-  const history = useHistory();
 
   const inputChange = (e) => {
     e.preventDefault();
@@ -69,7 +68,10 @@ export default function MoviesPage() {
           {found.map(({ original_title, name, id }) => {
             return (
               <li key={id} className={style.item}>
-                <Link to={`/movies/${id}`} className={style.link}>{original_title ?? name}</Link>
+                <Link to={{
+                  pathname: `/movies/${id}`,
+                  state: {from: location}
+                }} className={style.link}>{original_title ?? name}</Link>
               </li>
             );
           })}

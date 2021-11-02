@@ -1,6 +1,6 @@
 import { useParams, Switch, Route } from "react-router";
 import { lazy, Suspense } from "react";
-import { NavLink, useRouteMatch, useHistory } from "react-router-dom";
+import { NavLink, useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as FetchResponse from "../../services/FetchResponse";
 import BasicInfomByMovie from "../../views/BasicInfomByMovie/BasicInfomByMovie";
@@ -12,10 +12,12 @@ const Reviews = lazy(()=> import("../Reviews" /*webpackChunkName: "reviews"*/))
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
+  console.log(url)
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
@@ -51,17 +53,25 @@ export default function MovieDetailsPage() {
     }
   };
 
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? '/')
+  }
+
   return (
     <>
       {movie && (
         <div>
-          <BasicInfomByMovie movie={movie} onClick={history.goBack} />
+          <button type="button" onClick={onGoBack} className={style.button}>Go back</button>
+          <BasicInfomByMovie movie={movie} />
           <div className={style.additional__infom}>
             <p className={style.overview}>Additional information</p>
             <ul className={style.list}>
               <li className={style.item}>
                 <NavLink
-                  to={`${url}/cast`}
+                  to={{
+                    pathname: `${url}/cast`,
+                    state: {from: location?.state?.from ?? '/'}
+                  }}
                   onClick={getCast}
                   className={style.link}
                 >
@@ -70,7 +80,10 @@ export default function MovieDetailsPage() {
               </li>
               <li className={style.item}>
                 <NavLink
-                  to={`${url}/reviews`}
+                  to={{
+                    pathname: `${url}/reviews`,
+                    state: {from: location?.state?.from ?? '/'}
+                  }}
                   onClick={() => {
                     getReviews();
                   }}
@@ -88,7 +101,7 @@ export default function MovieDetailsPage() {
               {cast.length !== 0 ? (
                 <Cast cast={cast} />
               ) : (
-                <p>Sorry, sorry, nothing was found</p>
+                <p>Sorry, nothing was found</p>
               )}
             </Route>
             <Route path={`${url}/reviews`}>

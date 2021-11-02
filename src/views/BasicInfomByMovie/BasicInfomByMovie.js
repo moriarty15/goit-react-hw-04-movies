@@ -5,7 +5,7 @@ const defaultImgURL =
   "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
 const BASE_URL_IMG = "https://www.themoviedb.org/t/p/w220_and_h330_face";
 
-export default function BasicInfomByMovie({ movie, onClick }) {
+export default function BasicInfomByMovie({ movie }) {
   const {
     original_title,
     release_date,
@@ -16,9 +16,7 @@ export default function BasicInfomByMovie({ movie, onClick }) {
   } = movie;
   return (
     <>
-      <button onClick={() => onClick()} className={style.button}>
-        Go back
-      </button>
+      
       <div className={style.container}>
         <div>
           <h2 className={style.title}>

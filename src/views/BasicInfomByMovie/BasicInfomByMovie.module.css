@@ -21,19 +21,7 @@
   width: 220px;
   height: 330px;
 }
-.button {
-  margin: 10px;
-  border: 2px solid #4caf50;
-  background-color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  color: green;
-}
-.button:hover {
-  background-color: #4caf50;
-  color: white;
-}
+
 .rigth__side {
   margin-left: 30px;
 }
