@@ -42,3 +42,9 @@
     margin-bottom: 20px;
   }
 }
+@media screen and (min-width: 1024px) {
+  .images {
+    width: 600px;
+    height: 900px;
+  }
+}

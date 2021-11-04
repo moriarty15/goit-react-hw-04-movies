@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import * as FetchResponse from "../../services/FetchResponse";
 import BasicInfomByMovie from "../../views/BasicInfomByMovie/BasicInfomByMovie";
 import style from "./MovieDetailsPage.module.css";
-import Trailer from "../Trailer/Trailer";
+import Modal from "../../views/Modal/Modal";
 
 
 const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast"*/));
@@ -24,7 +24,8 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [trailer, setTrailer] = useState([]);
+  const [trailer, setTrailer] = useState('');
+  const [showModal, setShowModal] = useState(false)
   const location = useLocation();
   const history = useHistory();
 
@@ -74,10 +75,15 @@ export default function MovieDetailsPage() {
       const json = await response.json();
       const results = await json.results[0];
       setTrailer(results.key)
+      openModal()
     } catch (error) {
       alert("всё пропало");
     }
   };
+
+  const openModal = () => {
+    setShowModal(!showModal)
+  }
 
 
   return (
@@ -133,6 +139,7 @@ export default function MovieDetailsPage() {
               </li>
             </ul>
           </div>
+          {showModal && <Modal openModal={openModal } trailer={trailer}/>}
 
           <Suspense fallback={<p>loading</p>}>
             <Switch>
@@ -146,13 +153,6 @@ export default function MovieDetailsPage() {
               <Route path={`${url}/reviews`}>
                 {reviews.length !== 0 ? (
                   <Reviews reviews={reviews} />
-                ) : (
-                  <p>We don't have any reviews for this movie</p>
-                )}
-              </Route>
-              <Route path={`${url}/trailer`}>
-                {trailer !== "" ? (
-                  <Trailer trailer={trailer} />
                 ) : (
                   <p>We don't have any reviews for this movie</p>
                 )}

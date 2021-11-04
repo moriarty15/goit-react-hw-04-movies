@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const defaultImgURL =
   "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
 const BASE_URL_IMG = "https://www.themoviedb.org/t/p/w220_and_h330_face";
+const BASE_URL_IMGx2 = "https://www.themoviedb.org/t/p/w600_and_h900_face";
 
 export default function BasicInfomByMovie({ movie }) {
   const {
@@ -24,6 +25,7 @@ export default function BasicInfomByMovie({ movie }) {
         <div>
           <img
             className={style.images}
+            srcSet={`${BASE_URL_IMG}${poster_path} 300w, ${BASE_URL_IMGx2}${poster_path} 1024w`} 
             src={poster_path ? `${BASE_URL_IMG}${poster_path}` : defaultImgURL}
             alt={original_title}
           />
