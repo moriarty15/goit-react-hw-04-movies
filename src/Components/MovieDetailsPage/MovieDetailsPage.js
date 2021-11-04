@@ -1,14 +1,22 @@
 import { useParams, Switch, Route } from "react-router";
 import { lazy, Suspense } from "react";
-import { NavLink, useRouteMatch, useHistory, useLocation } from "react-router-dom";
+import {
+  NavLink,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as FetchResponse from "../../services/FetchResponse";
 import BasicInfomByMovie from "../../views/BasicInfomByMovie/BasicInfomByMovie";
 import style from "./MovieDetailsPage.module.css";
+import Trailer from "../Trailer/Trailer";
 
-const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast"*/))
-const Reviews = lazy(()=> import("../Reviews" /*webpackChunkName: "reviews"*/))
 
+const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast"*/));
+const Reviews = lazy(() =>
+  import("../Reviews" /*webpackChunkName: "reviews"*/)
+);
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
@@ -16,6 +24,7 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [trailer, setTrailer] = useState([]);
   const location = useLocation();
   const history = useHistory();
 
@@ -53,14 +62,31 @@ export default function MovieDetailsPage() {
   };
 
   const onGoBack = () => {
-    history.push(location?.state?.from ?? '/')
-  }
+    history.push(location?.state?.from ?? "/");
+  };
+
+  const getTrailer = async () => {
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=f67f4d14d6b529f941fa4f285225b954&language=en-US`
+      );
+
+      const json = await response.json();
+      const results = await json.results[0];
+      setTrailer(results.key)
+    } catch (error) {
+      alert("всё пропало");
+    }
+  };
+
 
   return (
     <>
       {movie && (
         <div className={style.container}>
-          <button type="button" onClick={onGoBack} className={style.button}>Go back</button>
+          <button type="button" onClick={onGoBack} className={style.button}>
+            Go back
+          </button>
           <BasicInfomByMovie movie={movie} />
           <div className={style.additional__infom}>
             <p className={style.overview}>Additional information</p>
@@ -69,7 +95,7 @@ export default function MovieDetailsPage() {
                 <NavLink
                   to={{
                     pathname: `${url}/cast`,
-                    state: {from: location?.state?.from ?? '/'}
+                    state: { from: location?.state?.from ?? "/" },
                   }}
                   onClick={getCast}
                   className={style.link}
@@ -81,7 +107,7 @@ export default function MovieDetailsPage() {
                 <NavLink
                   to={{
                     pathname: `${url}/reviews`,
-                    state: {from: location?.state?.from ?? '/'}
+                    state: { from: location?.state?.from ?? "/" },
                   }}
                   onClick={() => {
                     getReviews();
@@ -91,26 +117,47 @@ export default function MovieDetailsPage() {
                   Reviews
                 </NavLink>
               </li>
+              <li  className={style.item}>
+                <NavLink
+                  to={{
+                    pathname: `${url}/trailer`,
+                    state: {from: location?.state?.from ?? "/"}
+                  }}
+                  className={style.link}
+                  onClick={() => {
+                    getTrailer();
+                  }}
+                >
+                  Trailer
+                  </NavLink>
+              </li>
             </ul>
           </div>
 
-          <Suspense fallback={<p>loading</p>}>          
-          <Switch>
-            <Route path={`${url}/cast`}>
-              {cast.length !== 0 ? (
-                <Cast cast={cast} />
-              ) : (
-                <p>Sorry, nothing was found</p>
-              )}
-            </Route>
-            <Route path={`${url}/reviews`}>
-              {reviews.length !== 0 ? (
-                <Reviews reviews={reviews} />
-              ) : (
-                <p>We don't have any reviews for this movie</p>
-              )}
-            </Route>
-          </Switch>
+          <Suspense fallback={<p>loading</p>}>
+            <Switch>
+              <Route path={`${url}/cast`}>
+                {cast.length !== 0 ? (
+                  <Cast cast={cast} />
+                ) : (
+                  <p>Sorry, nothing was found</p>
+                )}
+              </Route>
+              <Route path={`${url}/reviews`}>
+                {reviews.length !== 0 ? (
+                  <Reviews reviews={reviews} />
+                ) : (
+                  <p>We don't have any reviews for this movie</p>
+                )}
+              </Route>
+              <Route path={`${url}/trailer`}>
+                {trailer !== "" ? (
+                  <Trailer trailer={trailer} />
+                ) : (
+                  <p>We don't have any reviews for this movie</p>
+                )}
+              </Route>
+            </Switch>
           </Suspense>
         </div>
       )}

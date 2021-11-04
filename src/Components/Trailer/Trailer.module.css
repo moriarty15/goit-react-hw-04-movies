@@ -1,0 +1,28 @@
+@media screen and (min-width: 320px) {
+  .container {
+    width: 320px;
+    margin: 0 auto;
+  }
+  .frame {
+    width: 280px;
+    height: 213px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+  .frame {
+    width: 768px;
+    height: 512px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 1024px;
+  }
+  .frame {
+    width: 984px;
+    height: 656px;
+  }
+}

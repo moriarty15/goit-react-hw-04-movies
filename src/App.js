@@ -2,6 +2,8 @@ import { Switch, Route } from "react-router";
 import { lazy, Suspense } from "react";
 import Navigation from "./Components/Navigation";
 import NotFoundView from "./Components/NotFoundView";
+
+
 // import { useHistory, useLocation } from "react-router-dom";
 
 
