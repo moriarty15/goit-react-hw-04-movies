@@ -1,5 +1,8 @@
+.container {
+  padding: 20px;
+}
 .additional__infom {
-  margin: 10px;
+  text-align: center;
 }
 .overview {
   font-weight: bold;
@@ -12,6 +15,9 @@
   padding: 0;
   list-style: none;
   display: flex;
+  width: 185px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .item {
   font-size: 26px;
@@ -19,13 +25,13 @@
   margin: 0;
 }
 .item + .item {
-  margin-left: 20px;
+  margin-left: 50px;
 }
 .link {
   text-decoration: none;
+  color: #ff6b01;
 }
 .button {
-  margin: 10px;
   border: 2px solid #4caf50;
   background-color: white;
   padding: 14px 28px;

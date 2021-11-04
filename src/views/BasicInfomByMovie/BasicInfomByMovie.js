@@ -16,13 +16,12 @@ export default function BasicInfomByMovie({ movie }) {
   } = movie;
   return (
     <>
-      
-      <div className={style.container}>
-        <div>
-          <h2 className={style.title}>
+      <h2 className={style.title}>
             {original_title} (<span>{release_date.slice(0, 4)}</span>)
           </h2>
-
+      <div className={style.container}>
+        
+        <div>
           <img
             className={style.images}
             src={poster_path ? `${BASE_URL_IMG}${poster_path}` : defaultImgURL}
@@ -30,21 +29,21 @@ export default function BasicInfomByMovie({ movie }) {
           />
         </div>
         <div className={style.rigth__side}>          
-          <p className={style.overview}>Overview </p>
+          <p className={style.overview}>Overview: </p>
           <p className={style.overview__content}>{overview}</p>
-          <p className={style.overview}>Genres </p>
+          <p className={style.overview}>Genres: </p>
           
-          <ul>
+          <ul className={style.genres__list}>
             {genres.map(({ name }) => {
               return (
-                <li key={name}>
+                <li className={style.genres__item} key={name}>
                   <span>{name}</span>
                 </li>
               );
             })}
           </ul>
           <p className={style.overview}>
-            rate: <span>{vote_average}</span>
+            Vote: <span>{vote_average}</span>
           </p>
         </div>
       </div>

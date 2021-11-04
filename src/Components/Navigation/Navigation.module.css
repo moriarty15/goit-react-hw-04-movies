@@ -1,9 +1,18 @@
+body {
+  margin: 0;
+}
+:root {
+  --bgc-color-button: #ff6b01;
+}
+.contain {
+  margin-top: 20px;
+}
 .link + .link {
   margin-left: 20px;
 }
 
 .link {
-  color: black;
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -13,17 +22,56 @@
 }
 
 .activeLink {
-  /* color: red;
-   */
-  background-color: dodgerblue;
+  background-color: var(--bgc-color-button);
   color: white;
 }
+.link:hover {
+  background-color: var(--bgc-color-button);
+  color: white;
+}
+
 .header {
-  background-color: #f1f1f1;
+  background-image: url("../../images/home320x1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 320px;
+  height: 230px;
   padding: 20px 10px;
   text-align: center;
 }
-.link:hover {
-  background-color: rgb(130, 183, 236);
-  color: white;
+@media (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .header {
+    background-image: url("../../images/home320x2.jpg");
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url("../../images/home768x1.jpg");
+    min-width: 768px;
+  }
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .header {
+      background-image: url("../../images/home768x2.jpg");
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    background-image: url("../../images/home1024x1.jpg");
+    min-width: 1024px;
+  }
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .header {
+      background-image: url("../../images/home1024x2.jpg");
+    }
+  }
 }

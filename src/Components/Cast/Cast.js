@@ -6,10 +6,10 @@ export default function Cast({ cast }) {
   return (
     <>
       {cast.length !== 0 && (
-        <ul>
+        <ul className={style.list}>
           {cast.map(({ profile_path, id, name, character }) => {
             return (
-              <li key={id} className={style.contain}>
+              <li key={id} className={style.item}>
               <CastView
                 profile_path={profile_path}
                 id={id}

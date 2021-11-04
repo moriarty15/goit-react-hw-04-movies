@@ -12,7 +12,6 @@ const Reviews = lazy(()=> import("../Reviews" /*webpackChunkName: "reviews"*/))
 
 export default function MovieDetailsPage() {
   const { url } = useRouteMatch();
-  console.log(url)
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
@@ -60,7 +59,7 @@ export default function MovieDetailsPage() {
   return (
     <>
       {movie && (
-        <div>
+        <div className={style.container}>
           <button type="button" onClick={onGoBack} className={style.button}>Go back</button>
           <BasicInfomByMovie movie={movie} />
           <div className={style.additional__infom}>

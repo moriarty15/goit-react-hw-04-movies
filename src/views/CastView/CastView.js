@@ -9,7 +9,7 @@ export default function CastView({ profile_path, name, character }) {
   return (
     <>
       <img
-        className={style.images}
+        className={style.image}
         src={profile_path ? `${BASE_URL_IMG}${profile_path}` : defaultImgURL}
         alt="img"
       />
