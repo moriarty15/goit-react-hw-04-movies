@@ -10,8 +10,16 @@
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
 }
-
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+}
 .modal {
+  position: relative;
   width: 984px;
   height: 656px;
   background-color: #fff;
@@ -22,17 +30,36 @@
     margin: 0 auto;
   }
   .frame {
-    width: 280px;
-    height: 213px;
+    width: calc(280px + 20vw);
+    height: calc(213px + 10vw);
+  }
+  .modal {
+    width: calc(280px + 20vw);
+    height: calc(213px + 10vw);
+  }
+}
+@media screen and (min-width: 500px) {
+  .frame {
+    width: calc(395px + 20vw);
+    height: calc(300px + 10vw);
+  }
+  .modal {
+    width: calc(395px + 20vw);
+    height: calc(300px + 10vw);
   }
 }
 @media screen and (min-width: 768px) {
   .container {
     width: 768px;
+    margin: 0 auto;
   }
   .frame {
-    width: 768px;
-    height: 512px;
+    width: calc(600px + 20vw);
+    height: calc(456px + 10vw);
+  }
+  .modal {
+    width: calc(600px + 20vw);
+    height: calc(456px + 10vw);
   }
 }
 @media screen and (min-width: 1024px) {
@@ -40,7 +67,11 @@
     width: 1024px;
   }
   .frame {
-    width: 984px;
-    height: 656px;
+    width: calc(800px + 20vw);
+    height: calc(656px + 10vw);
+  }
+  .modal {
+    width: calc(800px + 20vw);
+    height: calc(656px + 10vw);
   }
 }

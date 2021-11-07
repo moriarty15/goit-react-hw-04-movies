@@ -22,7 +22,7 @@
   margin-left: 20px;
 }
 .input::placeholder {
-  color: rgba(185, 176, 176, 0.904);
+  color: rgba(255, 255, 255, 0.904);
 }
 .button {
   padding: 0;
@@ -61,7 +61,15 @@
   margin-bottom: 20px;
   color: #ff6b01;
 }
-
+@media screen and (min-width: 500px) {
+  .form {
+    top: 200px;
+    border-bottom: 1px solid #ffffff;
+  }
+  .input {
+    font-size: 30px;
+  }
+}
 @media screen and (min-width: 768px) {
   .list {
     display: flex;
@@ -80,6 +88,13 @@
 @media screen and (min-width: 1024px) {
   .list {
     width: 930px;
+  }
+  .form {
+    top: 300px;
+    border-bottom: 2px solid #ffffff;
+  }
+  .input {
+    font-size: 40px;
   }
 }
 @media screen and (min-width: 1300px) {

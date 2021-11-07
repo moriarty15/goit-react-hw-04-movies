@@ -5,7 +5,7 @@ export default function Reviews({ reviews }) {
     return (<>
         <ul className={style.list}>
             {reviews.map(({author, content}) => {
-                return <li key={author}>
+                return <li className={style.item} key={author}>
                     <h3>{author}</h3>
                     <p>{content }</p>
                 </li>

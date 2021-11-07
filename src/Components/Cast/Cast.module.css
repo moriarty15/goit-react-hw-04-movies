@@ -21,3 +21,13 @@
     width: 930px;
   }
 }
+@media screen and (min-width: 1300px) {
+  .list {
+    width: 1240px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .list {
+    width: 1550px;
+  }
+}

@@ -45,7 +45,7 @@ export default function BasicInfomByMovie({ movie }) {
             })}
           </ul>
           <p className={style.overview}>
-            Vote: <span>{vote_average}</span>
+            Vote: <span className={style.rate}>{vote_average}</span>
           </p>
         </div>
       </div>
