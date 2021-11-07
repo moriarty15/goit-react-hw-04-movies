@@ -13,8 +13,8 @@ export default function Navigation() {
           </div>
         </NavLink>
         <div>
-          <ul  className={style.list}>
-            <li  className={style.item}>
+          <ul className={style.list}>
+            <li className={style.item}>
               <NavLink
                 exact
                 to="/"
@@ -24,7 +24,7 @@ export default function Navigation() {
                 HOME
               </NavLink>
             </li>
-            <li  className={style.item}>
+            <li className={style.item}>
               <NavLink
                 to="/movies"
                 className={style.link}
@@ -80,6 +80,15 @@ export default function Navigation() {
               </NavLink>
             </li>
           </ul>
+          {/* <div className={style.link__contain}>
+            <NavLink
+            to="/"
+            className={style.link__hero__movie}
+          >
+            WATCH MOVIE
+          </NavLink>
+          </div> */}
+          
         </div>
       </div>
     </nav>

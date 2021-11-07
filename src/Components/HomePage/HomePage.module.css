@@ -7,11 +7,14 @@
   width: 280px;
 }
 .titlePost {
-  padding: 30px 0;
+  width: 80vw;
+  margin: 0 auto;
+  padding: 10px 10px;
   color: #ff6b01;
   text-align: center;
   font-size: 30px;
   font-weight: 900;
+  border-bottom: 2px solid #ff6b01;
 }
 .titleSpan {
   color: #fff;
@@ -54,6 +57,9 @@
     flex-wrap: wrap;
     width: 620px;
   }
+  .titlePost {
+    padding: 30px 10px;
+  }
   .open {
     display: none;
   }
@@ -68,5 +74,24 @@
 @media screen and (min-width: 1024px) {
   .list {
     width: 930px;
+  }
+  .titlePost {
+    width: 81vw;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .list {
+    width: 1240px;
+  }
+  .titlePost {
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .list {
+    width: 1550px;
+  }
+  .titlePost {
+    width: 93vw;
   }
 }
