@@ -1,0 +1,49 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0, 8);
+  z-index: 1200;
+}
+
+.modal {
+  height: 100vh;
+  background-color: #000;
+}
+
+.link {
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.3;
+  border-radius: 4px;
+}
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  padding: 12px;
+}
+.item:hover,
+.item:focus,
+.item:active {
+  background-color: #ff6b01;
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #ff6b01;
+  border: transparent;
+}
+@media screen and (min-width: 768px) {
+  .overlay {
+    display: none;
+  }
+}
